@@ -1,5 +1,6 @@
 package com.movies.MoviesBackend.dto;
 
+import com.movies.MoviesBackend.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequest {
+public class RegisterRequest {
     private String username;
-    String password;
+    private String email;
+    private String password;
+    //private Role role;
 }

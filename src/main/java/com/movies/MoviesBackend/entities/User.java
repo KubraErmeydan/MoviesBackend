@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-//@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,7 +34,14 @@ public class User implements UserDetails {
     private String email;
     private String userName;
     private String password;
-    private String rePassword;
+
+
+    public User(String id, String email, String userName, String password) {
+        this.id = id;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

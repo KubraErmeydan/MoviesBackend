@@ -20,6 +20,9 @@ public class JwtService {
 
     @Value("${security.jwt.secret}")
     private String SECRET_KEY;
+
+    @Value("${moviesapp.expires.in}")
+    private long EXPIRES_IN;
     public String findUsername(String token) {
         return exportToken(token, Claims::getSubject);
     }
