@@ -1,6 +1,7 @@
 package com.movies.MoviesBackend.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.movies.MoviesBackend.entities.Actor;
 import com.movies.MoviesBackend.repository.ActorRepository;
@@ -30,6 +31,7 @@ public class ActorServiceImpl implements  ActorService {
 
     @Override
     public Actor getActorById(String actorId) {
-        return actorRepository.findById(actorId).orElse(null);
+        Optional<Actor> optionalActor = actorRepository.findById(actorId);
+        return optionalActor.orElse(null);
     }
 }
