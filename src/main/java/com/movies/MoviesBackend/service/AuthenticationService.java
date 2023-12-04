@@ -51,11 +51,11 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse auth(AuthenticationRequest userRequest) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getEmail(), userRequest.getPassword()));
-        User user =userRepository.findByUserName(userRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+        User user = userRepository.findByEmail(userRequest.getEmail()).orElseThrow();
+        final var userToken = new UsernamePasswordAuthenticationToken(user.getUsername(), userRequest.getPassword());
+        authenticationManager.authenticate(userToken);
 
-        var token =jwtService.generateToken(user);
-// token kaydetme
+        var token = jwtService.generateToken(user);
         tokens.add(token);
 
         return AuthenticationResponse.builder().token(token).build();
