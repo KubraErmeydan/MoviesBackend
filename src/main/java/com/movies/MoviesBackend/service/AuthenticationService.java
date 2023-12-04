@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final ArrayList<String> tokens = new ArrayList<>();
 
 
 
@@ -53,9 +55,17 @@ public class AuthenticationService {
         User user =userRepository.findByUserName(userRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
 
         var token =jwtService.generateToken(user);
+// token kaydetme
+        tokens.add(token);
 
         return AuthenticationResponse.builder().token(token).build();
     }
+
+    public boolean containsToken (String token){
+        return tokens.contains(token);
+    }
+
+
 
 //    public void  refreshToken(HttpServletRequest request, HttpServletResponse response
 //    )throws IOException {
